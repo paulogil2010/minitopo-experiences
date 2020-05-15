@@ -225,7 +225,7 @@ do
     """
 
         echo "$cen,$bandwA,$cpavg1,$ssentU,$sretrU,$slossU,$ctimeU" >> $raiz/$saida.sp.txt
-        echo "$cen,$bandwA,$bandwB,$cpavg1m,$cpavg2m,$sentA,$sentB,$ssentM,$sretrM,$slossM,$ctimeM" >> $raiz/$saida.mp.txt
+        echo "$cen,$bandwA,$bandwB,$cpavg1m,$cpavg2m,$ssentA,$ssentB,$ssentM,$sretrM,$slossM,$ctimeM" >> $raiz/$saida.mp.txt
     done
 cd $raiz
 done
