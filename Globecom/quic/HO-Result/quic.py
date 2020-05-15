@@ -55,7 +55,7 @@ def quicTests(topos, protocol="mptcp", tmpfs="/mnt/tmpfs"):
                     CLIENT_PCAP: "yes",
                     SERVER_PCAP: "yes",
                     HTTPS_FILE: "random",
-                    HTTPS_RANDOM_SIZE: "30000",
+                    HTTPS_RANDOM_SIZE: "20000",
                     QUIC_MULTIPATH: kwargs["multipath"],
                     RMEM: (10240, 87380, 16777216),
                 }
