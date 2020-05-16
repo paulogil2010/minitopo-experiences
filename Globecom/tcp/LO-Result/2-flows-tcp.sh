@@ -2,13 +2,14 @@
 
 
 raiz=$(pwd)
-saida=$(pwd | cut -d'/' -f5)
+protocol=$(pwd | cut -d'/' -f7)
+cenario=$(pwd | cut -d'/' -f8)
 pasta=$(ls -d */)
 cen=0
 
 
-echo "Cenario,Band,RTT,Sent,Retrans,Lost,Time" > $raiz/$saida.sp.txt
-echo "Cenario,BandA,BandB,RTTA,RTTB,Sent,Retrans,Lost,Time" > $raiz/$saida.mp.txt
+echo "Cenario,Band,RTT,Sent,Retrans,Lost,Time" > $raiz/$protocol.$cenario.sp.txt
+echo "Cenario,BandA,BandB,RTTA,RTTB,Sent,Retrans,Lost,Time" > $raiz/$protocol.$cenario.mp.txt
 
 my_function () {
     if [[ $1 == *ms ]]; then
@@ -149,8 +150,8 @@ do
 
         """
 
-        echo "$cen,$bandwA,$cpavg1,$ssentU,$sretrU,$slossU,$ctimeU" >> $raiz/$saida.sp.txt
-        echo "$cen,$bandwA,$bandwB,$cpavg1m,$cpavg2m,$ssentM,$sretrM,$slossM,$ctimeM" >> $raiz/$saida.mp.txt
+        echo "$cen,$bandwA,$cpavg1,$ssentU,$sretrU,$slossU,$ctimeU" >> $raiz/$protocol.$cenario.sp.txt
+        echo "$cen,$bandwA,$bandwB,$cpavg1m,$cpavg2m,$ssentM,$sretrM,$slossM,$ctimeM" >> $raiz/$protocol.$cenario.mp.txt
     done
     cd $raiz
 done
