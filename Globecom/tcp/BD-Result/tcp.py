@@ -169,4 +169,4 @@ def launchTests(times=5):
     for i in range(times):
         quicTests(mptcpTopos)
 
-launchTests(times=2)
+launchTests(times=10)

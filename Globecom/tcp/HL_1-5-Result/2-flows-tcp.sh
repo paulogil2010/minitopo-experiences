@@ -1,14 +1,14 @@
 #!/bin/bash
 
-
 raiz=$(pwd)
-saida=$(pwd | cut -d'/' -f5)
-pasta=$(ls -d */)
+protocol=$(pwd | cut -d'/' -f7)
+cenario=$(pwd | cut -d'/' -f8)
+pasta=$(ls -d */ | grep -v core)
 cen=0
 
 
-echo "Cenario,Band,RTT,Sent,Retrans,Lost,Time" > $raiz/$saida.sp.txt
-echo "Cenario,BandA,BandB,RTTA,RTTB,Sent,Retrans,Lost,Time" > $raiz/$saida.mp.txt
+echo "Cenario,Band,RTT,Sent,Retrans,Lost,Time" > $raiz/$protocol.$cenario.sp.txt
+echo "Cenario,BandA,BandB,RTTA,RTTB,Sent,Retrans,Lost,Time" > $raiz/$protocol.$cenario.mp.txt
 
 my_function () {
     if [[ $1 == *ms ]]; then
@@ -36,8 +36,8 @@ my_function () {
 }
 
 for dir in $pasta
-do 
-    cd $dir 
+do
+    cd $dir
     ins=$(ls | cut -d' ' -f 9)
 
     for sub in $ins
@@ -69,11 +69,11 @@ do
         creceU=$(cat $sub/https/0/netstat_client_after | egrep -i -A 10 'tcp\:' | awk 'FNR == 7 {print $1}')
         csentU=$(cat $sub/https/0/netstat_client_after | egrep -i -A 10 'tcp\:' | awk 'FNR == 8 {print $1}')
         cretrU=$(cat $sub/https/0/netstat_client_after | egrep -i -A 10 'tcp\:' | awk 'FNR == 9 {print $1}')
-        
+
         #TEMPO TOTAL ESTA NO CLIENTE PARA O (MP)TCP
         ctempU=$(cat $sub/https/0/https_client.log | grep real | awk '{print $2}')
         ctimeU=$(my_function $ctempU)
-        
+
         #DADOS DO SERVIDOR CAMINHO UNICO#
         sreceU=$(cat $sub/https/0/netstat_client_after | egrep -i -A 10 'tcp\:' | awk 'FNR == 7 {print $1}')
         ssentU=$(cat $sub/https/0/netstat_server_after | egrep -i -A 10 'tcp\:' | awk 'FNR == 8 {print $1}')
@@ -84,7 +84,7 @@ do
         creceM=$(cat $sub/https/1/netstat_client_after | egrep -i -A 10 'tcp\:' | awk 'FNR == 7 {print $1}')
         csentM=$(cat $sub/https/1/netstat_client_after | egrep -i -A 10 'tcp\:' | awk 'FNR == 8 {print $1}')
         cretrM=$(cat $sub/https/1/netstat_client_after | egrep -i -A 10 'tcp\:' | awk 'FNR == 9 {print $1}')
-        
+
         #TEMPO TOTAL ESTA NO CLIENTE PARA O (MP)TCP
         ctempM=$(cat $sub/https/1/https_client.log | grep real | awk '{print $2}')
         ctimeM=$(my_function $ctempM)
@@ -93,14 +93,14 @@ do
 
         cpmin1m=$(cat $sub/https/1/ping.log | grep rtt | head -n1 | cut -d"/" -f4 | cut -d" " -f3)
         cpmax1m=$(cat $sub/https/1/ping.log | grep rtt | head -n1 | cut -d"/" -f6)
-        
+
         cptmp1m=$(cat $sub/https/1/ping.log | grep rtt | head -n1 | tr '/' ' ' |awk -F' ' '{print $8 $11}')
         cpavg1m=$(my_function $cptmp1m)
-        
-        
+
+
         cpmin2m=$(cat $sub/https/1/ping.log | grep rtt | tail -n1 | cut -d"/" -f4 | cut -d" " -f3)
         cpmax2m=$(cat $sub/https/1/ping.log | grep rtt | tail -n1 | cut -d"/" -f6)
-        
+
         cptmp2m=$(cat $sub/https/1/ping.log | grep rtt | tail -n1 | tr '/' ' ' |awk -F' ' '{print $8 $11}')
         cpavg2m=$(my_function $cptmp2m)
 
@@ -113,7 +113,7 @@ do
         cen=$(($cen+1))
 
         echo -e """
-        #       PARAMETROS DO CENARIO: $cen   
+        #       PARAMETROS DO CENARIO: $cen
         #    delay caminho A: \t\t\t\t $delayA
         #    delay caminho B: \t\t\t\t $delayB
         #    banda caminho A: \t\t\t\t $bandwA
@@ -149,8 +149,8 @@ do
 
         """
 
-        echo "$cen,$bandwA,$cpavg1,$ssentU,$sretrU,$slossU,$ctimeU" >> $raiz/$saida.sp.txt
-        echo "$cen,$bandwA,$bandwB,$cpavg1m,$cpavg2m,$ssentM,$sretrM,$slossM,$ctimeM" >> $raiz/$saida.mp.txt
+        echo "$cen,$bandwA,$cpavg1,$ssentU,$sretrU,$slossU,$ctimeU" >> $raiz/$protocol.$cenario.sp.txt
+        echo "$cen,$bandwA,$bandwB,$cpavg1m,$cpavg2m,$ssentM,$sretrM,$slossM,$ctimeM" >> $raiz/$protocol.$cenario.mp.txt
     done
     cd $raiz
 done
