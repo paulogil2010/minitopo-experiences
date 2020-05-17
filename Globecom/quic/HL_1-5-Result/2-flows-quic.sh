@@ -4,7 +4,7 @@
 raiz=$(pwd)
 protocol=$(pwd | cut -d'/' -f7)
 cenario=$(pwd | cut -d'/' -f8)
-pasta=$(ls -d */ | grep -v core)
+pasta=$(ls -d */ | grep -v core | grep -v ifstat)
 cen=0
 
 echo "Cenario,Band,RTT,Sent,Retrans,Lost,Time" > $raiz/$protocol.$cenario.sp.txt

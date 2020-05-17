@@ -2,12 +2,12 @@
 
 
 raiz=$(pwd)
-pasta=$(ls -d */)
+pasta=$(ls -d */ | grep -v core | grep -v ifstat | grep -v ifstat)
 saida="$raiz/ifstat"
 cen=1
 aux=1
 
-if [! -d "$saida"]; then
+if [ ! -d "$saida" ]; then
     mkdir $saida
 else
     rm -rf $saida/*
