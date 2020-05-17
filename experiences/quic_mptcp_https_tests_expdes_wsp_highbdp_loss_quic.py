@@ -3,10 +3,10 @@
 from __future__ import print_function
 
 # Doing * imports is bad :'(
-from core.generate_topo import *
-from core.generate_xp import *
+from ..core.generate_topo import *
+from ..core.generate_xp import *
 
-import core.core as core
+import ..core.core as core
 import numpy as np
 import os
 

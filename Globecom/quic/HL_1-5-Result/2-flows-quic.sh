@@ -3,11 +3,11 @@
 
 raiz=$(pwd)
 saida=$(pwd | cut -d'/' -f5)
-pasta=$(ls -l | grep -v grep | grep -v total | grep -v core | awk -F' ' '{print $9}')
+pasta=$(ls -l | grep -v grep | grep -v total | grep -v quic | awk -F' ' '{print $9}')
 cen=0
 
 echo "Cenario,Band,RTT,Sent,Retrans,Lost,Time" > $raiz/$saida.sp.txt
-echo "Cenario,BandA,BandB,RTTA,RTTB,Sent,Retrans,Lost,Time" > $raiz/$saida.mp.txt
+echo "Cenario,BandA,BandB,RTTA,RTTB,SentA,SentB,Sent,Retrans,Lost,Time" > $raiz/$saida.mp.txt
 
 my_function () {
     if [[ $1 == *[0-9]ms ]]; then
@@ -225,7 +225,7 @@ do
     """
 
         echo "$cen,$bandwA,$cpavg1,$ssentU,$sretrU,$slossU,$ctimeU" >> $raiz/$saida.sp.txt
-        echo "$cen,$bandwA,$bandwB,$cpavg1m,$cpavg2m,$ssentM,$sretrM,$slossM,$ctimeM" >> $raiz/$saida.mp.txt
+        echo "$cen,$bandwA,$bandwB,$cpavg1m,$cpavg2m,$ssentA,$ssentB,$ssentM,$sretrM,$slossM,$ctimeM" >> $raiz/$saida.mp.txt
     done
 cd $raiz
 done
