@@ -27,7 +27,7 @@ do
             echo "eth0-in,eth0-out,eth1-in,eth1-out" > $FILE
         fi
 
-        cat $sub/quic/1/client_ifstat.txt | sed '/KB\/s/g' | sed '/Clie/d' | awk -v OFS="," '$1=$1' >> $FILE
+        cat $sub/quic/1/client_ifstat.txt | sed '/KB\/s/g' | sed '/Clie/d' | sed 's/^[[:space:]]*//' | sed 's/[[:space:]]\{1,\}/,/g' | sed -r '/^\s*$/d' >> $FILE
         aux=$((aux+1))
     done
     cen=$((cen+1))

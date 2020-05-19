@@ -2,12 +2,12 @@
 
 
 raiz=$(pwd)
-pasta=$(ls -d */)
+pasta=$(ls -d */ | grep -v core | grep -v ifstat | grep -v ifstat)
 saida="$raiz/ifstat"
 cen=1
 aux=1
 
-if [! -d "$saida"]; then
+if [ ! -d "$saida" ]; then
     mkdir $saida
 else
     rm -rf $saida/*
@@ -27,7 +27,7 @@ do
             echo "eth0-in,eth0-out,eth1-in,eth1-out" > $FILE
         fi
 
-        cat $sub/quic/1/client_ifstat.txt | sed '/KB\/s/g' | sed '/Clie/d' | awk -v OFS="," '$1=$1' >> $FILE
+        cat $sub/https/1/client_ifstat.txt | sed '/KB\/s/g' | sed '/Clie/d' | sed 's/^[[:space:]]*//' | sed 's/[[:space:]]\{1,\}/,/g' | sed -r '/^\s*$/d' >> $FILE
         aux=$((aux+1))
     done
     cen=$((cen+1))
