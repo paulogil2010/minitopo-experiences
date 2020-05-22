@@ -2,27 +2,28 @@
 
 
 # QUIC
-cd quic/BL_1-5-Result
-start=$(date +%H:%M:%S)
+cd quic/HL_1-5-Result
+begin=$(date '+%d/%m/%Y %H:%M:%S')
+
 
 sudo ./quic.py
 ./2-flows-quic.sh
 ./if-stat.sh
 
 cd ../../
-end=$(date +%H:%M:%S)
+end=$(date '+%d/%m/%Y %H:%M:%S')
 
-echo "Iniciou - $start\nTerminou - $end" > quic_BL_1-5-Result-time.txt
+echo -e "Iniciou - $begin\nTerminou - $end" > quic_HL_1-5-Result-time.txt
 
 # TCP
-cd tcp/BL_1-5-Result
-start=$(date +%H:%M:%S)
+cd tcp/HL_1-5-Result
+begin=$(date '+%d/%m/%Y %H:%M:%S')
 
 sudo ./tcp.py
 ./2-flows-tcp.sh
 ./if-stat.sh
 
 cd../../
-end=$(date +%H:%M:%S)
+end=$(date '+%d/%m/%Y %H:%M:%S')
 
-echo "Iniciou - $start\nTerminou - $end" > tcp_BL_1-5-Result-time.txt
+echo -e "Iniciou - $begin\nTerminou - $end" > tcp_HL_1-5-Result-time.txt
