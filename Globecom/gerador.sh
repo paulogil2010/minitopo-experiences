@@ -6,10 +6,10 @@ else
     touch perdas.txt
 fi
 
-for i in {1..25}
+for i in {1..5}
 do
-    cA=$(shuf -i 1-10 -n 1)
-    cB=$(shuf -i 1-10 -n 1)
+    cA=$(shuf -i 90-100 -n 1)
+    cB=$(shuf -i 90-100 -n 1)
     unA=$(shuf -i 0-9 -n 1)
     deA=$(shuf -i 0-9 -n 1)
     unB=$(shuf -i 0-9 -n 1)
